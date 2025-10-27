@@ -1,0 +1,17 @@
+[package]
+name = "chillie"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+linera-sdk = { path = "../../linera-protocol/linera-sdk", default-features = false, features = [] }
+serde = { version = "1.0", features = ["derive"] }
+futures = "0.3.30"
+
+[[bin]]
+name = "chillie_contract"
+path = "src/contract.rs"
+
+[[bin]]
+name = "chillie_service"
+path = "src/service.rs"

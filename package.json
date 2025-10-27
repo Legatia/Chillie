@@ -1,0 +1,30 @@
+{
+  "name": "chillie-linera-backend",
+  "version": "1.0.0",
+  "description": "Backend server for Chillie Linera CLI integration",
+  "main": "backend-server.js",
+  "scripts": {
+    "start": "node backend-server.js",
+    "dev": "nodemon backend-server.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "jest": "^30.2.0",
+    "nodemon": "^3.0.1",
+    "supertest": "^7.1.4"
+  },
+  "keywords": [
+    "linera",
+    "blockchain",
+    "cli",
+    "cors-proxy"
+  ],
+  "author": "Chillie Dev",
+  "license": "MIT"
+}
