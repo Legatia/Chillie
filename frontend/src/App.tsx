@@ -6,6 +6,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Room from "./pages/Room";
 import NotFound from "./pages/NotFound";
+import StakingPage from "./pages/StakingPage";
+import PrivateMeetings from "./pages/PrivateMeetings";
+import PublicStreaming from "./pages/PublicStreaming";
 
 const queryClient = new QueryClient();
 
@@ -18,6 +21,9 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/room/:roomId" element={<Room />} />
+          <Route path="/staking" element={<StakingPage />} />
+          <Route path="/private-meetings" element={<PrivateMeetings />} />
+          <Route path="/public-streaming" element={<PublicStreaming />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -1,0 +1,19 @@
+[package]
+name = "chillie-payment-processor"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "simulation"
+path = "src/simulation.rs"
+
+[dependencies]
+linera-sdk = { git = "https://github.com/linera-io/linera-protocol", branch = "testnet_conway" }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+async-trait = "0.1"
+thiserror = "1.0"
+tokio = { version = "1.0", features = ["full"] }
+
+[dev-dependencies]
+linera-sdk = { git = "https://github.com/linera-io/linera-protocol", branch = "testnet_conway", features = ["test"] }

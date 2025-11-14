@@ -59,3 +59,32 @@ jest.config.json
 # OS generated files
 Thumbs.db
 .DS_Store?
+
+# Blockchain storage and databases
+local-service-storage/
+faucet-storage.db
+*.db
+*.db-*
+
+# Deployment and backup files
+backend-server.js.backup
+*.backup
+.deployment.env
+
+# Test and demo files
+simulation_demo
+simulation_demo.rs
+payment_blockchain_test.js
+testnet-committee.json
+
+# Build artifacts
+chillie-contracts/*/target/
+chillie-contracts/payment-processor/target/
+*.wasm
+*.so
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+*~

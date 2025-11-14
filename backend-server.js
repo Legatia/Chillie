@@ -15,8 +15,8 @@ app.use(express.json());
 
 // Configuration
 const LINERA_DIR = '/Users/tobiasd/Desktop/Chillie/linera-protocol';
-const WALLET_PATH = '/Users/tobiasd/Desktop/Chillie/linera-protocol/cli-wallet';
-const STORAGE_PATH = '/Users/tobiasd/Desktop/Chillie/cli-storage';
+const WALLET_PATH = '/Users/tobiasd/Library/Application Support/linera';
+const STORAGE_PATH = 'rocksdb:/Users/tobiasd/Desktop/Chillie/cli-storage';
 
 // In-memory room storage (for demo purposes - in production this would be on-chain)
 const roomStorage = new Map();
@@ -32,7 +32,8 @@ async function executeLineraCommand(command, args = []) {
             cwd: LINERA_DIR,
             env: {
                 ...process.env,
-                LINERA_VALIDATORS: "https://validator-1.testnet-conway.linera.net:443,https://validator-2.testnet-conway.linera.net:443,https://validator-3.testnet-conway.linera.net:443"
+                LINERA_VALIDATORS: "https://validator-1.testnet-conway.linera.net:443,https://validator-2.testnet-conway.linera.net:443,https://validator-3.testnet-conway.linera.net:443",
+                LINERA_STORAGE: STORAGE_PATH
             },
             timeout: 30000
         });
@@ -86,19 +87,7 @@ app.get('/api/balance', async (req, res) => {
     try {
         console.log('[BACKEND] Querying REAL balance from Conway testnet...');
 
-        // Check if wallet exists first
-        const fs = require('fs');
-        if (!fs.existsSync(WALLET_PATH)) {
-            console.log('[BACKEND] Wallet not found - returning default balance');
-            return res.json({
-                success: true,
-                balance: 'Wallet not initialized - 0 LINERA',
-                message: '📝 Wallet needs initialization (this is expected for testing)',
-                chainId: '9b030590d16320a057e68fc39becafff4c5c46ff239ef27031a959cf45d5b48b',
-                needsSetup: true
-            });
-        }
-
+        // Execute balance query directly - wallet is already configured
         const result = await executeLineraCommand('query-balance');
 
         console.log('[BACKEND] Real balance query result:', result.stdout);
@@ -217,7 +206,7 @@ app.post('/api/create-room', async (req, res) => {
                 app_id: '2bd8caee1c4725c919992631a8af75fe6aa4c67115e710a1406838ec8ed1f89e',
                 transactionHash: `storage-${Date.now()}`,
                 blockHeight: 'Storage mode (deployment failed)',
-                message: `✅ Room "${roomName}" created in local storage`,
+                message: `✅ Room created in local storage`,
                 contractType: 'Local storage only',
                 needsSetup: true,
                 deployError: deployError.message
