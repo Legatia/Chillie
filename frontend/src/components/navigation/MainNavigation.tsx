@@ -32,9 +32,9 @@ export const MainNavigation: React.FC<MainNavigationProps> = ({ userStake = 0, i
   const navigate = useNavigate();
 
   const getUserTier = (stake: number) => {
-    if (stake >= 10000) return { name: "Premium Creator", icon: <Crown className="h-4 w-4" />, color: "text-yellow-600" };
-    if (stake >= 5000) return { name: "Streamer", icon: <Zap className="h-4 w-4" />, color: "text-purple-600" };
-    if (stake >= 1000) return { name: "Content Creator", icon: <TrendingUp className="h-4 w-4" />, color: "text-blue-600" };
+    if (stake >= 2000) return { name: "Multi-Stream Host", icon: <Crown className="h-4 w-4" />, color: "text-yellow-600" };
+    if (stake >= 500) return { name: "Solo Streamer", icon: <Zap className="h-4 w-4" />, color: "text-purple-600" };
+    if (stake >= 100) return { name: "Podcast Host", icon: <TrendingUp className="h-4 w-4" />, color: "text-blue-600" };
     return { name: "Basic User", icon: <Users className="h-4 w-4" />, color: "text-gray-600" };
   };
 
@@ -57,15 +57,15 @@ export const MainNavigation: React.FC<MainNavigationProps> = ({ userStake = 0, i
       description: "Broadcast to the world and earn from your content through tips and microtransactions",
       icon: <Globe className="h-8 w-8" />,
       features: [
-        `Requires ${userStake >= 1000 ? "✓" : "1,000 tokens stake"}`,
-        `${userStake >= 1000 ? userTier.name : "Content Creator"} tier`,
+        `Requires ${userStake >= 100 ? "✓" : "100 tokens stake"}`,
+        `${userStake >= 100 ? userTier.name : "Podcast Host"} tier`,
         "Monetization enabled",
         "Public discovery"
       ],
-      buttonText: userStake >= 1000 ? "Start Streaming" : "Stake to Unlock",
-      buttonAction: () => userStake >= 1000 ? navigate('/public-streaming') : navigate('/staking'),
-      gradient: userStake >= 1000 ? "from-purple-500 to-purple-600" : "from-gray-400 to-gray-500",
-      available: userStake >= 1000,
+      buttonText: userStake >= 100 ? "Start Streaming" : "Stake to Unlock",
+      buttonAction: () => userStake >= 100 ? navigate('/public-streaming') : navigate('/staking'),
+      gradient: userStake >= 100 ? "from-purple-500 to-purple-600" : "from-gray-400 to-gray-500",
+      available: userStake >= 100,
       category: "streaming"
     },
     {
@@ -74,7 +74,7 @@ export const MainNavigation: React.FC<MainNavigationProps> = ({ userStake = 0, i
       icon: <TrendingUp className="h-8 w-8" />,
       features: [
         `${userTier.name} (${userStake.toLocaleString()} tokens)`,
-        `${userStake >= 1000 ? (userStake >= 5000 ? (userStake >= 10000 ? 97 : 85) : 70) : 0}% revenue share`,
+        `${userStake >= 100 ? (userStake >= 500 ? (userStake >= 2000 ? 97 : 85) : 70) : 0}% revenue share`,
         "Tier progression",
         "Exclusive benefits"
       ],
@@ -235,9 +235,8 @@ export const MainNavigation: React.FC<MainNavigationProps> = ({ userStake = 0, i
             }}
             whileTap={{ scale: 0.98 }}
           >
-            <Card className={`relative overflow-hidden group border-0 shadow-lg hover:shadow-2xl transition-all duration-500 ${
-              item.available ? 'hover:shadow-primary/25' : ''
-            }`}>
+            <Card className={`relative overflow-hidden group border-0 shadow-lg hover:shadow-2xl transition-all duration-500 ${item.available ? 'hover:shadow-primary/25' : ''
+              }`}>
               {/* Animated Gradient Background */}
               <motion.div
                 className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
@@ -263,11 +262,10 @@ export const MainNavigation: React.FC<MainNavigationProps> = ({ userStake = 0, i
                     {item.category === 'streaming' && (
                       <Badge
                         variant={item.available ? "default" : "secondary"}
-                        className={`${
-                          item.available
+                        className={`${item.available
                             ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white'
                             : 'bg-gray-200 text-gray-600'
-                        }`}
+                          }`}
                       >
                         {item.available ? "✨ Available" : "🔒 Requires Staking"}
                       </Badge>
@@ -291,11 +289,10 @@ export const MainNavigation: React.FC<MainNavigationProps> = ({ userStake = 0, i
                       transition={{ delay: 0.1 + idx * 0.05 }}
                     >
                       <motion.div
-                        className={`w-2 h-2 rounded-full ${
-                          feature.startsWith('✓') ? 'bg-green-500 shadow-green-500/50 shadow-lg' :
-                          feature.includes('tokens') && userStake >= 1000 ? 'bg-green-500 shadow-green-500/50 shadow-lg' :
-                          'bg-muted'
-                        }`}
+                        className={`w-2 h-2 rounded-full ${feature.startsWith('✓') ? 'bg-green-500 shadow-green-500/50 shadow-lg' :
+                            feature.includes('tokens') && userStake >= 100 ? 'bg-green-500 shadow-green-500/50 shadow-lg' :
+                              'bg-muted'
+                          }`}
                         animate={{
                           scale: [1, 1.2, 1],
                         }}
@@ -305,11 +302,10 @@ export const MainNavigation: React.FC<MainNavigationProps> = ({ userStake = 0, i
                           delay: idx * 0.1
                         }}
                       />
-                      <span className={`${
-                        feature.startsWith('✓') || (feature.includes('tokens') && userStake >= 1000)
+                      <span className={`${feature.startsWith('✓') || (feature.includes('tokens') && userStake >= 100)
                           ? 'text-foreground font-medium'
                           : 'text-muted-foreground'
-                      }`}>
+                        }`}>
                         {feature}
                       </span>
                     </motion.div>
@@ -320,9 +316,8 @@ export const MainNavigation: React.FC<MainNavigationProps> = ({ userStake = 0, i
                 <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                   <Button
                     onClick={item.buttonAction}
-                    className={`w-full h-14 text-lg font-semibold bg-gradient-to-r ${item.gradient} hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-3 ${
-                      !item.available && item.category !== 'streaming' ? 'opacity-50 cursor-not-allowed' : ''
-                    }`}
+                    className={`w-full h-14 text-lg font-semibold bg-gradient-to-r ${item.gradient} hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-3 ${!item.available && item.category !== 'streaming' ? 'opacity-50 cursor-not-allowed' : ''
+                      }`}
                     disabled={!item.available && item.category !== 'streaming'}
                   >
                     {item.buttonText}
@@ -331,7 +326,7 @@ export const MainNavigation: React.FC<MainNavigationProps> = ({ userStake = 0, i
                 </motion.div>
 
                 {/* Additional Info for Streaming */}
-                {item.category === 'streaming' && userStake < 1000 && (
+                {item.category === 'streaming' && userStake < 100 && (
                   <motion.div
                     className="mt-4 p-4 bg-gradient-to-r from-orange-50 to-yellow-50 rounded-xl border border-orange-200"
                     initial={{ opacity: 0, height: 0 }}
@@ -340,13 +335,13 @@ export const MainNavigation: React.FC<MainNavigationProps> = ({ userStake = 0, i
                   >
                     <p className="text-sm text-orange-800 flex items-center gap-2">
                       <Star className="w-4 h-4" />
-                      <strong>Stake 1,000 tokens</strong> to unlock public streaming and start earning!
+                      <strong>Stake 100 tokens</strong> to unlock public streaming and start earning!
                     </p>
                   </motion.div>
                 )}
 
                 {/* Revenue Share Display for Staking */}
-                {item.category === 'staking' && userStake >= 1000 && (
+                {item.category === 'staking' && userStake >= 100 && (
                   <motion.div
                     className="mt-4 p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border border-green-200"
                     initial={{ opacity: 0, height: 0 }}
@@ -356,8 +351,8 @@ export const MainNavigation: React.FC<MainNavigationProps> = ({ userStake = 0, i
                     <p className="text-sm text-green-800 flex items-center gap-2">
                       <Crown className="w-4 h-4" />
                       <strong>Current Revenue Share:</strong> {
-                        userStake >= 10000 ? 97 :
-                        userStake >= 5000 ? 85 : 70
+                        userStake >= 2000 ? 97 :
+                          userStake >= 500 ? 85 : 70
                       }% • Stake more to increase!
                     </p>
                   </motion.div>

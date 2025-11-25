@@ -80,6 +80,7 @@ testnet-committee.json
 # Build artifacts
 chillie-contracts/*/target/
 chillie-contracts/payment-processor/target/
+chillie-node/target/
 *.wasm
 *.so
 

@@ -1,0 +1,13 @@
+[package]
+name = "chillie-node"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+clap = { version = "4.4", features = ["derive"] }
+tokio = { version = "1.32", features = ["full"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+anyhow = "1.0"
+linera-sdk = { path = "../linera-protocol/linera-sdk" } # Align with contracts
+chillie = { path = "../chillie-contracts/room-manager" } # Link to contract types

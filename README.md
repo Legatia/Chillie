@@ -27,6 +27,10 @@ A fully-functional decentralized video conferencing platform built on the Linera
   - ⚡ Instant tips (<100ms) after one-time deposit
   - 🔄 Auto-settlement with tier-based revenue sharing (70-97% to creators)
   - 💰 Batch processing for gas efficiency
+- **📡 Node Contributor System** - **DePIN infrastructure for decentralized streaming**
+  - 🖥️ `chillie-node` CLI for users to run relay nodes
+  - 💰 Earn tokens by relaying video traffic
+  - 🔒 Staking-based registration (5,000 tokens)
 
 ### Frontend
 - **🎥 WebRTC Video** - Peer-to-peer video conferencing
@@ -43,6 +47,15 @@ A fully-functional decentralized video conferencing platform built on the Linera
 - **🔄 Auto-Settlement** - Hourly batch settlement or $100 threshold
 - **🎯 Revenue Sharing** - Tier-based splits: 97% (Premium), 85% (Streamer), 70% (Creator)
 - **🎨 Beautiful UI** - Charts, gradients, and animations using shadcn/ui
+
+### Staking Tier System (NEW!)
+- **🔒 Permission Gating** - Stake tokens to unlock hosting features
+- **📊 Tiers**:
+  - **Basic (0 Stake)**: Private P2P meetings
+  - **Podcast (100 Stake)**: Audio-only broadcasting
+  - **Solo Stream (500 Stake)**: One-to-many video streaming
+  - **Multi Stream (2,000 Stake)**: Multi-host streaming
+- **🔄 Token Flexibility** - Supports Native Linera tokens and Custom tokens
 
 ### Infrastructure
 - **🌐 GraphQL API** - Real-time blockchain queries
@@ -98,6 +111,10 @@ chillie/
 │
 ├── PAYMENT_SYSTEM_COMPLETE.md   # 💳 Payment system documentation
 ├── BUILDATHON_SUMMARY.md        # ✅ Project overview
+├── chillie-node/                 # ✅ Node Contributor CLI
+│   ├── src/main.rs              # CLI entry point
+│   └── Cargo.toml               # Rust dependencies
+│
 └── .deployment.env               # ✅ Live deployment config
 ```
 

@@ -55,13 +55,12 @@ const tierFeatures = {
   },
   1: {
     icon: <TrendingUp className="h-4 w-4" />,
-    name: "Content Creator",
+    name: "Podcast Host",
     features: [
       "Create public podcast rooms",
-      "Enable tipping & super chat",
-      "Basic analytics dashboard",
-      "Community features",
-      "Custom room branding"
+      "Audio-only broadcasting",
+      "Enable tipping",
+      "Basic analytics"
     ],
     color: "from-blue-500 to-blue-600",
     canCreatePublic: true,
@@ -69,13 +68,12 @@ const tierFeatures = {
   },
   2: {
     icon: <Zap className="h-4 w-4" />,
-    name: "Streamer",
+    name: "Solo Streamer",
     features: [
       "Create video streaming rooms",
-      "Advanced payment features",
+      "One-to-many video",
       "Priority bandwidth",
-      "Advanced analytics",
-      "Multi-room moderation"
+      "Advanced analytics"
     ],
     color: "from-purple-500 to-purple-600",
     canCreatePublic: true,
@@ -83,13 +81,12 @@ const tierFeatures = {
   },
   3: {
     icon: <Crown className="h-4 w-4" />,
-    name: "Premium Creator",
+    name: "Multi-Stream Host",
     features: [
-      "Multi-room hosting",
+      "Multi-host streaming (up to 4)",
       "API access",
       "Exclusive features",
-      "Dedicated support",
-      "White-label options"
+      "Dedicated support"
     ],
     color: "from-yellow-500 to-yellow-600",
     canCreatePublic: true,
@@ -104,8 +101,12 @@ export function StakingDashboard({ stats, onStake, onUnstake }: StakingDashboard
   const currentTier = tierFeatures[stats.currentTier as keyof typeof tierFeatures];
   const nextTier = tierFeatures[stats.currentTier + 1 as keyof typeof tierFeatures];
 
+  const tierThresholds = { 0: 0, 1: 100, 2: 500, 3: 2000 };
+  const nextTierThreshold = nextTier ? tierThresholds[(stats.currentTier + 1) as keyof typeof tierThresholds] : 0;
+  const currentTierThreshold = tierThresholds[stats.currentTier as keyof typeof tierThresholds];
+
   const progressToNext = nextTier
-    ? ((stats.totalStaked - (stats.currentTier * 1000)) / 1000) * 100
+    ? ((stats.totalStaked - currentTierThreshold) / (nextTierThreshold - currentTierThreshold)) * 100
     : 100;
 
   const handleUnstake = () => {
@@ -230,7 +231,7 @@ export function StakingDashboard({ stats, onStake, onUnstake }: StakingDashboard
                     <div className="flex items-center gap-2 text-orange-600">
                       <Lock className="h-4 w-4" />
                       <span className="text-sm">
-                        Requires staking 1,000 tokens
+                        Requires staking 100 tokens
                       </span>
                     </div>
                   )}
@@ -248,7 +249,7 @@ export function StakingDashboard({ stats, onStake, onUnstake }: StakingDashboard
                   Progress to Next Tier
                 </CardTitle>
                 <CardDescription>
-                  Stake {(nextTier.level * 1000) - stats.totalStaked} more tokens to reach {nextTier.name}
+                  Stake {nextTierThreshold - stats.totalStaked} more tokens to reach {nextTier.name}
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -260,7 +261,7 @@ export function StakingDashboard({ stats, onStake, onUnstake }: StakingDashboard
                   <Progress value={progressToNext} className="h-3" />
                   <div className="flex justify-between text-xs text-muted-foreground">
                     <span>{stats.totalStaked.toLocaleString()} tokens</span>
-                    <span>{(nextTier.level * 1000).toLocaleString()} tokens</span>
+                    <span>{nextTierThreshold.toLocaleString()} tokens</span>
                   </div>
 
                   <div className="p-3 bg-muted rounded-lg">
@@ -311,7 +312,7 @@ export function StakingDashboard({ stats, onStake, onUnstake }: StakingDashboard
                     </Button>
                   </div>
                   <div className="flex gap-2">
-                    {[1000, 5000, 10000].map(amount => (
+                    {[100, 500, 2000].map(amount => (
                       <Button
                         key={amount}
                         variant="outline"
@@ -320,7 +321,7 @@ export function StakingDashboard({ stats, onStake, onUnstake }: StakingDashboard
                           if (onStake) onStake(amount);
                         }}
                       >
-                        {amount >= 1000 ? `${amount / 1000}k` : amount}
+                        {amount}
                       </Button>
                     ))}
                   </div>
@@ -389,7 +390,7 @@ export function StakingDashboard({ stats, onStake, onUnstake }: StakingDashboard
                             )}
                           </div>
                           <p className="text-sm text-muted-foreground">
-                            Level {level} • {(level * 1000).toLocaleString()} tokens min
+                            Level {level} • {level === '0' ? '0' : level === '1' ? '100' : level === '2' ? '500' : '2,000'} tokens min
                           </p>
                         </div>
                       </div>
