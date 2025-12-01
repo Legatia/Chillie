@@ -57,6 +57,10 @@ A fully-functional decentralized video conferencing platform built on the Linera
   - **Multi Stream (2,000 Stake)**: Multi-host streaming
 - **🔄 Token Flexibility** - Supports Native Linera tokens and Custom tokens
 
+### Multi-Chain Integration
+- **🧊 Walrus (Sui)**: Cold storage for stream recordings.
+- **🔥 Shelby (Aptos)**: Hot bandwidth relay for low-latency streaming.
+
 ### Infrastructure
 - **🌐 GraphQL API** - Real-time blockchain queries
 - **⚡ Cross-chain Messaging** - Event streaming between microchains
@@ -118,14 +122,25 @@ chillie/
 └── .deployment.env               # ✅ Live deployment config
 ```
 
-## 🚀 **Quick Start**
+## 🚀 Quick Start (Docker)
 
-### **Buildathon Template (Local Network)**
+The easiest way to run Chillie is using Docker Compose. This will start the local Linera network, deploy the contracts, and launch the frontend.
+
 ```bash
-cd buildathon-template
 docker compose up --force-recreate
-# Access at: http://localhost:5173
 ```
+
+- **Frontend**: http://localhost:5173
+- **Faucet**: http://localhost:8080
+
+## 🛠️ Manual Setup
+
+If you prefer to run components manually:
+
+### Prerequisites
+- Rust & Cargo
+- Node.js & npm
+- Linera CLI
 
 ### **Live Testnet Demo**
 ```bash

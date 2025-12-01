@@ -14,9 +14,10 @@ app.use(cors());
 app.use(express.json());
 
 // Configuration
-const LINERA_DIR = '/Users/tobiasd/Desktop/Chillie/linera-protocol';
-const WALLET_PATH = '/Users/tobiasd/Library/Application Support/linera';
-const STORAGE_PATH = 'rocksdb:/Users/tobiasd/Desktop/Chillie/cli-storage';
+// Configuration
+const LINERA_DIR = process.env.LINERA_DIR || '/build';
+const WALLET_PATH = process.env.LINERA_WALLET_PATH || path.join(process.env.HOME, '.config', 'linera');
+const STORAGE_PATH = process.env.LINERA_STORAGE || `rocksdb:${path.join(__dirname, 'cli-storage')}`;
 
 // In-memory room storage (for demo purposes - in production this would be on-chain)
 const roomStorage = new Map();
