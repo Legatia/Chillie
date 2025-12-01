@@ -1,5 +1,6 @@
 mod walrus;
 mod shelby;
+mod signaling;
 
 use clap::{Parser, Subcommand};
 use std::net::SocketAddr;
@@ -62,18 +63,7 @@ async fn main() {
             println!("Node registered successfully! (Mock)");
         }
         Commands::Start { port } => {
-            let addr = SocketAddr::from(([0, 0, 0, 0], *port));
-            println!("Starting Chillie Relay Node on {}", addr);
-            
-            // Mock server
-            let listener = tokio::net::TcpListener::bind(addr).await.unwrap();
-            loop {
-                let (socket, _) = listener.accept().await.unwrap();
-                tokio::spawn(async move {
-                    println!("Accepted connection");
-                    // Handle connection
-                });
-            }
+            signaling::start_signaling_server(*port).await;
         }
         Commands::StartShelby { aptos_address, region } => {
             println!("Initializing Shelby High-Performance Relay...");
